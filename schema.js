@@ -1,6 +1,7 @@
 const { GraphQLSchema, GraphQLObjectType } = require('graphql');
 const userResolver = require('./resolvers/userResolver')
 const productResolver = require('./resolvers/productResolver');
+const brandResolver = require('./resolvers/brandResolver');
 const dateScalar = require('./scalars/dateScalar');
 
 
@@ -9,7 +10,8 @@ const RootQuery = new GraphQLObjectType({
     name: "RootQueryType",
     fields: {
         ...userResolver.queries,
-        ...productResolver.queries
+        ...productResolver.queries,
+        ...brandResolver.queries
     }
 });
 
@@ -18,7 +20,8 @@ const Mutation = new GraphQLObjectType({
     name: "MutationType",
     fields: {
         ...userResolver.mutations,
-        ...productResolver.mutations
+        ...productResolver.mutations,
+        ...brandResolver.mutations
     }
 });
 
