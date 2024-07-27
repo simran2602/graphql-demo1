@@ -1,4 +1,4 @@
-const { GraphQLObjectType, GraphQLID, GraphQLString, GraphQLInt, GraphQLFloat, GraphQLBoolean } = require('graphql');
+const { GraphQLObjectType, GraphQLID, GraphQLString, GraphQLInt, GraphQLFloat, GraphQLBoolean, GraphQLList } = require('graphql');
 const dateScalar = require('../scalars/dateScalar')
 
 const productType = new GraphQLObjectType({
@@ -6,11 +6,17 @@ const productType = new GraphQLObjectType({
     fields: () => ({
         id: { type: GraphQLID },
         name: { type: GraphQLString },
-        price: { type: GraphQLFloat },
         description: { type: GraphQLString },
-        stock: { type: GraphQLInt },
+        price: { type: GraphQLFloat },
+        brandId: { type: GraphQLID },
+        categoryId:{type:GraphQLID},
+        imageUrls:{type:new GraphQLList(GraphQLString)},
+        stockQuantity: { type: GraphQLInt },
+        rating:{type:GraphQLInt},
+        status:{type:GraphQLBoolean},
         isDeleted: { type: GraphQLBoolean },
-        createdOn: { type: dateScalar }
+        createdOn: { type: dateScalar },
+        updatedOn:{ type: dateScalar },
     })
 });
 

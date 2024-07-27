@@ -4,21 +4,36 @@ const productSchema = new mongoose.Schema({
     name:{
         type:String
     },
-    price:{
-        type:String
-    },
     description:{
         type:String
     },
-    stock:{
+    price:{
         type:String
-    },    
+    },
+    brandId:{
+        type:mongoose.Schema.Types.ObjectId
+    },
+    categoryId:{
+        type:mongoose.Schema.Types.ObjectId
+    },
+    imageUrls:{
+        type:[String]
+    },   
+    stockQuantity:{
+        type:Number
+    },   
+    rating:{
+        type:Number
+    }, 
     status: {
         type: Boolean,
         default: true,
     },
     createdOn: {
         type: Date,
+    },
+    updatedOn:{
+        type:Date
     },
     isDeleted: {
         type: Boolean,

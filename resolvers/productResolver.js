@@ -1,4 +1,4 @@
-const { GraphQLInputObjectType, GraphQLID, GraphQLList, GraphQLFloat, GraphQLInt,GraphQLString } = require('graphql');
+const { GraphQLInputObjectType, GraphQLID, GraphQLList, GraphQLFloat, GraphQLInt, GraphQLString } = require('graphql');
 const ProductType = require('../types/productType');
 const Product = require('../models/product');
 
@@ -23,16 +23,24 @@ const mutations = {
         type: ProductType,
         args: {
             name: { type: GraphQLString },
-            price: { type: GraphQLFloat },
             description: { type: GraphQLString },
-            stock: { type: GraphQLInt },
+            price: { type: GraphQLFloat },
+            brandId: { type: GraphQLID },
+            categoryId: { type: GraphQLID },
+            imageUrls: { type: new GraphQLList(GraphQLString) },
+            stockQuantity: { type: GraphQLInt },
+            rating: { type: GraphQLInt },
         },
         resolve(parent, args) {
             const newProduct = new Product({
                 name: args.name,
-                price: args.price,
                 description: args.description,
-                stock: args.stock,
+                price: args.price,
+                brandId: args.brandId,
+                categoryId: args.categoryId,
+                imageUrls: args.imageUrls,
+                stockQuantity: args.stockQuantity,
+                rating: args.rating,
                 createdOn: new Date().toISOString()
             });
             return newProduct.save()
@@ -46,9 +54,13 @@ const mutations = {
                 args.id,
                 {
                     name: args.name,
-                price: args.price,
-                description: args.description,
-                stock: args.stock
+                    description: args.description,
+                    price: args.price,
+                    brandId: args.brandId,
+                    categoryId: args.categoryId,
+                    imageUrls: args.imageUrls,
+                    stockQuantity: args.stockQuantity,
+                    rating: args.rating
                 },
                 { new: true }
             )
@@ -69,4 +81,4 @@ const mutations = {
     }
 };
 
-module.exports = {queries,mutations}
+module.exports = { queries, mutations }
