@@ -1,5 +1,7 @@
 const graphql = require('graphql');
 const { GraphQLObjectType, GraphQLID, GraphQLString, GraphQLBoolean } = require('graphql');
+const dateScalar = require('../scalars/dateScalar')
+
 
 const userType = new GraphQLObjectType({
     name: "user",
@@ -9,7 +11,8 @@ const userType = new GraphQLObjectType({
         email: { type: GraphQLString },
         password: { type: GraphQLString },
         address: { type: GraphQLString },
-        isDeleted: { type:  GraphQLBoolean }
+        isDeleted: { type: GraphQLBoolean },
+        createdOn: { type: dateScalar }
     })
 });
 

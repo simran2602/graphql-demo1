@@ -33,6 +33,7 @@ const mutations = {
                 email: args.email,
                 password: args.password,
                 address: args.address,
+                createdOn: new Date().toISOString()
             });
            return  user.save()
         }
