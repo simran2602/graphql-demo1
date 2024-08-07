@@ -27,7 +27,7 @@ const mutations = {
             attributeValue: { type: GraphQLString },
         },
         resolve(parent, args) {
-            let ProductAttribute = new Brand({
+            let ProductAttribute = new ProductAttribute({
                 productId: args.productId,
                 attributeName: args.attributeName,
                 attributeValue: args.attributeValue,

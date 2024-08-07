@@ -3,6 +3,7 @@ const userResolver = require('./resolvers/userResolver')
 const productResolver = require('./resolvers/productResolver');
 const brandResolver = require('./resolvers/brandResolver');
 const productAttributeResolver = require("./resolvers/productAttributeResolver");
+const productImageResolver = require("./resolvers/productImageResolver");
 const dateScalar = require('./scalars/dateScalar');
 
 
@@ -13,7 +14,8 @@ const RootQuery = new GraphQLObjectType({
         ...userResolver.queries,
         ...productResolver.queries,
         ...brandResolver.queries,
-        ...productAttributeResolver.queries
+        ...productAttributeResolver.queries,
+        ...productImageResolver.queries
     }
 });
 
@@ -24,7 +26,8 @@ const Mutation = new GraphQLObjectType({
         ...userResolver.mutations,
         ...productResolver.mutations,
         ...brandResolver.mutations,
-        ...productAttributeResolver.mutations
+        ...productAttributeResolver.mutations,
+        ...productImageResolver.mutations
     }
 });
 
