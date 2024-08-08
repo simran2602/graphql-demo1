@@ -1,52 +1,52 @@
-const Brand = require('../models/brand');
-const BrandType = require('../types/brandType');
+const category = require('../models/category');
+const categoryType = require('../types/categoryType');
 const { GraphQLID, GraphQLList ,GraphQLString,GraphQLBoolean} = require('graphql');
 
 
 
 const queries = {
-    brand: {
-        type: BrandType,
+    category: {
+        type: categoryType,
         args: { id: { type: GraphQLID } },
         resolve(parent, args) {
-            return Brand.findById(args.id)
+            return category.findById(args.id)
         }
     },
-    brands: {
-        type: new GraphQLList(BrandType),
+    categories: {
+        type: new GraphQLList(categoryType),
         resolve(parent, args) {
-            return Brand.find({ isDeleted: false })
+            return category.find({ isDeleted: false })
         }
     }
 };
 
 const mutations = {
-    addBrand: {
-        type: BrandType,
+    addCategory: {
+        type: categoryType,
         args: {
             name: { type: GraphQLString },
             description: { type: GraphQLString },
-            logo: { type: GraphQLString }
+            parentId: { type: GraphQLID }
         },
        async resolve(parent, args) {
-            let check = await Brand.findOne({ name: args.name })
+            let check = await category.findOne({ name: args.name })
             if (check) {
-                throw new Error("Brand name already exists");
+                throw new Error("category name already exists");
             }
-            let brand = new Brand({
+            let categoryData = new category({
                 name: args.name,
                 description: args.description,
-                logo: args.logo,
+                parentId: args.parentId,
                 createdOn: new Date().toISOString()
             });
-            return await brand.save()
+            return await categoryData.save()
         }
     },
-    updateBrand: {
-        type: BrandType,
+    updatecategory: {
+        type: categoryType,
         args: { id: { type: GraphQLID } },
         resolve(parent, args) {
-            return Brand.findByIdAndUpdate(args.id,
+            return category.findByIdAndUpdate(args.id,
                 {
                     name: args.name,
                     description: args.description,
@@ -57,11 +57,11 @@ const mutations = {
             )
         }
     },
-    deleteBrand: {
-        type: BrandType,
+    deletecategory: {
+        type: categoryType,
         args: { id: { type: GraphQLID } },
         resolve(parent, args) {
-            return Brand.findByIdAndUpdate(
+            return category.findByIdAndUpdate(
                 args.id,
                 { isDeleted: true },
                 { new: true }

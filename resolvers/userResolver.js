@@ -1,7 +1,8 @@
 const { GraphQLID, GraphQLList, GraphQLString } = require('graphql');
 const User = require('../models/user');
 const UserType = require('../types/userType');
-
+const passwordHash = require('password-hash');
+const jwt = require('jsonwebtoken');
 const queries = {
     user: {
         type: UserType,
@@ -26,16 +27,25 @@ const mutations = {
             email: { type: GraphQLString },
             password: { type: GraphQLString },
             address: { type: GraphQLString },
+            token: { type: GraphQLString },
+
         },
-        resolve(parent, args) {
+        async resolve(parent, args) {
+
+            let check = await User.findOne({ email: args.email })
+            if (check) {
+                throw new Error("Email already exists");
+            }
             let user = new User({
                 name: args.name,
                 email: args.email,
-                password: args.password,
+                password: passwordHash.generate(args.password),
                 address: args.address,
+                token: jwt.sign(args, process.env.JWT_SECRET),
                 createdOn: new Date().toISOString()
             });
-           return  user.save()
+            let savedUser = await user.save()
+            return savedUser
         }
     },
     updateUser: {

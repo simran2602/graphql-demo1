@@ -1,5 +1,5 @@
 const ProductImage = require("../models/productImage");
-const ProductImageType = require("../types/productImage");
+const ProductImageType = require("../types/productImageType");
 const { GraphQLObjectType, GraphQLList, GraphQLString, GraphQLID } = require("graphql");
 
 const queries = {

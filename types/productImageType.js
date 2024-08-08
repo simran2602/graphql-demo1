@@ -1,7 +1,7 @@
-const { GraphQLInputObjectType, GraphQLString, GraphQLID, GraphQLBoolean } = require('graphql');
+const { GraphQLInputObjectType, GraphQLString, GraphQLID, GraphQLBoolean, GraphQLObjectType } = require('graphql');
 const dateScalar = require('../scalars/dateScalar');
 
-const productImageType = new GraphQLInputObjectType({
+const productImageType = new GraphQLObjectType({
     name: "productImage",
     fields: () => ({
         id: { type: GraphQLID },
